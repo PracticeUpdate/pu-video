@@ -1,0 +1,75 @@
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# OS generated files or editor folders #
+########################################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+.cache
+.project
+.settings
+.tmproj
+
+# local cache and settings #
+############################
+.sass-cache
+*.sass-cache
+*.sass-cache*
+.scssc
+
+# codekit
+codekit-config.json
+codekit-config*
+*codekit-config.*
+
+# espresso
+*.esproj
+
+# netbeans
+nbproject
+
+# sublime
+*.sublime-project
+*.sublime-workspace
+
+
+# Folders to ignore #
+#####################
+.hg
+.svn
+.CVS
+.idea
+node_modules
+bower_components
+dev
