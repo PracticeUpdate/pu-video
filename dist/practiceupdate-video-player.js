@@ -197,7 +197,7 @@ function initJQuery() {
                             
                             link.type = 'text/css'
                             link.rel = 'stylesheet'
-                            link.href = 'http://www.inkskill.com/pv/app.css'
+                            link.href = 'http://pushare.s3.amazonaws.com/pu-video/latest/app.css'
                             head.appendChild(link);
 
                             //load the actuall video.

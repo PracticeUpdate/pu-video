@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/practiceupdate-video-player.js",
   "dependencies": {
-    "git-test": "git@bitbucket.org:practiceupdate/pu-video.git"
+    "git-pu-video": "git@bitbucket.org:practiceupdate/pu-video.git"
   },
   "devDependencies": {
     "grunt" : "*"
