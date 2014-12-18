@@ -8,9 +8,12 @@
 
 .pu-embed-video-brightcove.load-player .video-player {
 	position:relative;
-	padding-bottom:56%;
-	position:relative;
 	background:#000;
+}
+
+.pu-embed-video-brightcove.load-player .video-player .video-js {
+	width:100%;
+	height: 500px
 }
 
 .pu-embed-video-brightcove.load-player .video-player .BrightcoveExperience {
