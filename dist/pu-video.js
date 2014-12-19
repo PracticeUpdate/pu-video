@@ -57,8 +57,6 @@ function initJQuery() {
                             "videoID": videoID
                         };
 
-                        console.log(accountID);
-
                         playerTemplate = '<video id="pu_video" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video>';
                         template = Handlebars.compile(playerTemplate);
                         playerHTML = template(playerData);
@@ -140,7 +138,7 @@ function initJQuery() {
 
                             // initialize playlist
                             for (var i = 0; i < total; i++) {
-                                str = '<li class="list-group-item j-play-video" data-index="' + i + '" data-id="' + playList.videos[i].id + '"><div class="media"><a class="pull-left" href="#"><img class="media-object img-responsive" src="' + playList.videos[i].thumbnailURL + '" alt="' + playList.videos[i].name + '" ></a><div class="media-body"><h4 class="media-heading">' + playList.videos[i].shortDescription + '</h4></div></div></li>';
+                                str = '<li class="list-group-item j-play-video" data-index="' + i + '" data-id="' + playList.videos[i].id + '"><div class="media"><a class="pull-left" href="#"><img class="media-object img-responsive j-pu-ellipse" src="' + playList.videos[i].thumbnailURL + '" alt="' + playList.videos[i].name + '" ></a><div class="media-body"><h4 class="media-heading">' + playList.videos[i].shortDescription + '</h4></div></div></li>';
 
                                 $(".j-drop-data").append(str);
 
@@ -162,7 +160,7 @@ function initJQuery() {
                             // make first video active when page load
                             $(".j-drop-data li:first-child").addClass('active');
 
-                            $('.media-body p').each(function (i, obj) {
+                            $('.media-body .j-pu-ellipse').each(function (i, obj) {
                                 $(this).html(trimLength($(this).html(), 90));
                             });
 
