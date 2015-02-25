@@ -1,6 +1,6 @@
 {
   "name": "PracticeUpdate Video Player",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/pu-video.js",
   "dependencies": {
     "git-pu-video": "git@bitbucket.org:practiceupdate/pu-video.git"
