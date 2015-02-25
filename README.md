@@ -12,7 +12,7 @@ Make sure to have bower already installed globally or within your project. If yo
 
 Install via bower with:
 ```
-bower install git-pu-video
+bower install pu-video
 ```
 
 ### How do I get set up? ###
