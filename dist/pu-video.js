@@ -51,7 +51,7 @@ function initJQuery() {
                     var SINGLEVIDEOID = $('#single-video-attributes').data('video_id');
 
                     var addPlayer = function (accountID, playerID, videoID, totalVideos) {
-                        console.log('create video player with video id ' + videoID);
+                        //console.log('create video player with video id ' + videoID);
                         playerData = {
                             "accountID": accountID,
                             "playerID": playerID,
@@ -71,12 +71,12 @@ function initJQuery() {
                         s.src = "//players.brightcove.net/" + playerData.accountID + "/" + playerData.playerID + "_default/index.min.js";
                         document.body.appendChild(s);
                         s.onload = function () {
-                            console.log("video js loaded");
+                            //console.log("video js loaded");
                             player = videojs("pu_video");
 
                             // play the video
                             player.ready(function() {
-                                console.log("ready");
+                                //console.log("ready");
                                 loadVideo();
                                 setTimeout(function() {
                                     $(".video-player").css('opacity', '1');
@@ -91,8 +91,8 @@ function initJQuery() {
                     };
 
                     loadVideo = function (click) {
-                        console.log('loadVideo')
-                        console.log(click)
+                        //console.log('loadVideo')
+                        //console.log(click)
 
                         click != undefined ? currentVideoIndex = currentVideoIndexClick : '';
 
@@ -138,9 +138,9 @@ function initJQuery() {
                     return {
                         setVideos: function (data) {
                             playList = data;
-                            console.log("playList returned");
+                            //console.log("playList returned");
 
-                            console.log(data);
+                            //console.log(data);
 
                             var total = playList.videos.length,
                                 //this need to be dynamic - size may vary based on video
