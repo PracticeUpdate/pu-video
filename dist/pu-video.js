@@ -62,6 +62,7 @@ function initJQuery() {
                         template = Handlebars.compile(playerTemplate);
                         playerHTML = template(playerData);
 
+
                         $(".video-player").html(playerHTML);
                         $('.video-playlist').prepend('<p class="video-label">Current Video: <span class="j-current-view">1</span> out of <span class="j-total-videos">' + totalVideos + '</span></p>');
 
@@ -77,6 +78,9 @@ function initJQuery() {
                             player.ready(function() {
                                 console.log("ready");
                                 loadVideo();
+                                setTimeout(function() {
+                                    $(".video-player").css('opacity', '1');
+                                }, 1000);
                             });
 
                             // listen for the "ended" event and play the video
@@ -89,8 +93,6 @@ function initJQuery() {
                     loadVideo = function (click) {
                         console.log('loadVideo')
                         console.log(click)
-
-                        // $('.pu-embed-video-brightcove.load-player .video-player').css('padding-bottom', paddingBottom + '%');
 
                         click != undefined ? currentVideoIndex = currentVideoIndexClick : '';
 
@@ -148,7 +150,7 @@ function initJQuery() {
                                 num = h/(w/100),
                                 paddingBottom = Math.round(num * 100) / 100;
 
-                            $("#video-attributes").replaceWith("<div class=\"pu-embed-video-brightcove load-player\"><div class=\"video-player\"></div><div class=\"video-playlist\"><span class=\"data-drop j-drop-data\"></span></div></div>");
+                            $("#video-attributes").replaceWith("<div class=\"pu-embed-video-brightcove load-player clearfix\"><div class=\"video-player\" style='opacity:0'></div><div class=\"video-playlist\"><span class=\"data-drop j-drop-data\"></span></div></div>");
 
                             // initialize playlist
                             for (var i = 0; i < total; i++) {
@@ -181,7 +183,9 @@ function initJQuery() {
                             // create player with first video loaded
                             addPlayer(ACCOUNTID, PLAYERID, firstVideo, total);
 
-                            $('.pu-embed-video-brightcove.load-player .video-player').css('padding-bottom', paddingBottom + '%');
+                            $('.pu-embed-video-brightcove.load-player .video-player').css({
+                                paddingBottom: paddingBottom + '%'
+                            });
                         },
                         
                         setSingleVideos: function (data) {

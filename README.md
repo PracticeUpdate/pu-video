@@ -26,7 +26,7 @@ For Playlist:
     data-callback="{{callback}}"
     data-playlist_id="{{player id}}" 
     data-list_fields="id,name,playListType,videos,videoIds,shortDescription" 
-    data-video_fields="id,name,shortDescription,longDescription,linkURL,linkText,thumbnailURL" 
+    data-video_fields="id,name,shortDescription,longDescription,linkURL,linkText,thumbnailURL,VideoFullLength" 
     data-media_delivery="default" 
     data-player_key="{{player key}}"
 	data-account="2421677169001"
@@ -39,7 +39,7 @@ For single player:
 <div id="single-video-attributes" class="hide"
   data-token="wOjLIZimzyxVTO_PUfLiy8yGM4k6VHXkpDaHPpYRahivuKgPorbErg.."
   data-video_id="3899652909001"		
-  data-video_fields="name,length,FLVURL"
+  data-video_fields="name,length,FLVURL,VideoFullLength"
   data-media_delivery="http"
   data-callback="PU.setSingleVideos"
 ></div>

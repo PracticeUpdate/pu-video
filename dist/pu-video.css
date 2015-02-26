@@ -1,9 +1,22 @@
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
 
 
 .pu-embed-video-brightcove.load-player {
-	margin-top:15px;
 	background:#11171a;
 	color:#aeaeae;
+	padding:30px;
 }
 
 .pu-embed-video-brightcove.load-player .video-player {
@@ -35,8 +48,6 @@
 	position:relative;
 	float:left;
 	min-height:1px;
-	padding-left:15px;
-	padding-right:15px;
 	padding-left:0;
 	width:100%;
 	margin-bottom:0;
@@ -44,7 +55,7 @@
 }
 
 .pu-embed-video-brightcove.load-player .video-playlist .video-label {
-	padding:0 10px 5px;
+	padding:10px;
 	margin:0;
 }
 

@@ -72,4 +72,6 @@ nbproject
 .idea
 node_modules
 bower_components
-dev
+dir
+src
+.gitignore
