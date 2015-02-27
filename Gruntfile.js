@@ -12,7 +12,7 @@ module.exports = function(grunt) {
         bucket: "pu-video-bucket"
       },
       build: {
-        cwd: "build/",
+        cwd: "dist/",
         src: "**"
       }
     }
