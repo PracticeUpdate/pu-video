@@ -42,6 +42,7 @@ For single player:
   data-video_fields="name,length,FLVURL,VideoFullLength"
   data-media_delivery="http"
   data-callback="PU.setSingleVideos"
+  data-auto_play="true"
 ></div>
 ```
 

@@ -159,3 +159,7 @@
 .pu-embed-video-brightcove .hide {
 	display:none;
 }
+
+.pu-single-embed-video-brightcove {
+	width: 100%
+}
