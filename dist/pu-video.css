@@ -12,6 +12,9 @@
 .clearfix { display: block; }
 /* close commented backslash hack */
 
+.vjs-poster {
+	background-size: cover;
+}
 
 .pu-embed-video-brightcove {
 	color:#aeaeae;

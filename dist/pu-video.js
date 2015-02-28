@@ -1,5 +1,7 @@
 var jQueryScriptOutputted = false;
 var PU;
+var AUTOPLAY = document.getElementById("single-video-attributes").getAttribute("data-auto_play"); 
+
 function loadScript(url, callback) {
     var script = document.createElement("script")
     script.type = "text/javascript";
@@ -195,7 +197,9 @@ function initJQuery() {
                                 num = h/(w/100),
                                 paddingBottom = Math.round(num * 100) / 100;
 
-                            $("#single-video-attributes").replaceWith('<video autoplay controls><source src='+data.FLVURL+' type="video/mp4">Your browser does not support HTML5 video.</video>');
+                                AUTOPLAY == 'true' ? autoplay = 'autoplay' : autoplay = '';
+
+                            $("#single-video-attributes").replaceWith('<video '+ autoplay +' controls><source src='+data.FLVURL+' type="video/mp4">Your browser does not support HTML5 video.</video>');
                             $('.pu-embed-video-brightcove.load-player .video-player').css('padding-bottom', paddingBottom + '%');
                         }
                     }
@@ -222,7 +226,8 @@ function initJQuery() {
                         singleVideoFields = $('#single-video-attributes').data('video_fields'),
                         singleMediaDelivery = $('#single-video-attributes').data('media_delivery'),
                         singleCallback = $('#single-video-attributes').data('callback'),
-                        singleVideoRest = "command=find_video_by_id&video_id="+ singleVideoId +"&video_fields="+singleVideoFields+"&media_delivery="+singleMediaDelivery+"&callback=" + singleCallback + "&token=" + singleToken,
+                        singleAutoPlay = $('#single-video-attributes').data('auto_play'),
+                        singleVideoRest = "command=find_video_by_id&video_id="+ singleVideoId +"&video_fields="+singleVideoFields+"&media_delivery="+singleMediaDelivery+"&callback=" + singleCallback + "&token=" + singleToken + "&autoplay=" + singleAutoPlay,
                         scriptSrcSingle = path + singleVideoRest;
 
                     //Add Video Styles
