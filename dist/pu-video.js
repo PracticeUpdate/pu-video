@@ -199,8 +199,7 @@ function initJQuery() {
 
                                 AUTOPLAY == 'true' ? autoplay = 'autoplay' : autoplay = '';
 
-                            $("#single-video-attributes").replaceWith('<video '+ autoplay +' controls><source src='+data.FLVURL+' type="video/mp4">Your browser does not support HTML5 video.</video>');
-                            $('.pu-embed-video-brightcove.load-player .video-player').css('padding-bottom', paddingBottom + '%');
+                            $("#single-video-attributes").replaceWith('<video id="pu-single-embed-video-brightcove" '+ autoplay +' controls><source src='+data.FLVURL+' type="video/mp4">Your browser does not support HTML5 video.</video>');
                         }
                     }
                 })();
