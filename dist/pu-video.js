@@ -66,7 +66,9 @@ function initJQuery() {
 
 
                         $(".video-player").html(playerHTML);
-                        $('.video-playlist').prepend('<p class="video-label">Current Video: <span class="j-current-view">1</span> out of <span class="j-total-videos">' + totalVideos + '</span></p>');
+
+                        if(totalVideos != 0)
+                            $('.video-playlist').prepend('<p class="video-label">Current Video: <span class="j-current-view">1</span> out of <span class="j-total-videos">' + totalVideos + '</span></p>');
 
                         // add and execute the player script tag
                         var s = document.createElement("script");
@@ -191,7 +193,6 @@ function initJQuery() {
                         },
                         
                         setSingleVideos: function (data) {
-                            // create single player using HTML5 api
                             var w = data.videoFullLength.frameWidth,
                                 h = data.videoFullLength.frameHeight,
                                 num = h/(w/100),
@@ -199,7 +200,19 @@ function initJQuery() {
 
                                 AUTOPLAY == 'true' ? autoplay = 'autoplay' : autoplay = '';
 
-                            $("#single-video-attributes").replaceWith('<video id="pu-single-embed-video-brightcove" '+ autoplay +' controls><source src='+data.FLVURL+' type="video/mp4">Your browser does not support HTML5 video.</video>');
+                            //$("#single-video-attributes").replaceWith('<video id="pu-single-embed-video-brightcove" '+ autoplay +' controls><source src='+data.FLVURL+' type="video/mp4">Your browser does not support HTML5 video.</video>');
+
+                            videoPlayer = '<video id="pu-single-embed-video-brightcove" '+ autoplay +' controls>';
+                            videoPlayer +=  '<source src="'+data.FLVURL+'" type="video/mp4">';
+                            videoPlayer +=  '  <object width="640" height="360" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0">';
+                            videoPlayer +=  '        <param name="SRC" value="player.swf?file='+data.FLVURL+'">';
+                            videoPlayer +=  '        <embed src="player.swf?file='+data.FLVURL+'" width="640"';
+                            videoPlayer +=  '          height="360"></embed>';
+                            videoPlayer +=  '        <p>Please update your browser or install Flash</p>';
+                            videoPlayer +=  '  </object>';
+                            videoPlayer +=  '</video>';
+
+                            $("#single-video-attributes").replaceWith(videoPlayer);
                         }
                     }
                 })();
