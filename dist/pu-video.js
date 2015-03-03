@@ -77,7 +77,6 @@ function initJQuery() {
                         s.onload = function () {
                             //console.log("video js loaded");
                             player = videojs("pu_video");
-
                             PUPLAYER = videojs("pu_video");
 
                             // play the video
@@ -97,9 +96,6 @@ function initJQuery() {
                     };
 
                     loadVideo = function (click) {
-                        //console.log('loadVideo')
-                        //console.log(click)
-
                         click != undefined ? currentVideoIndex = currentVideoIndexClick : '';
 
                         if (currentVideoIndex < playList.videos.length) {
@@ -133,12 +129,6 @@ function initJQuery() {
                         } else {
                             return text;
                         }
-                    };
-
-                    centerVideo = function () {
-                        $('.BrightcoveExperience').css({
-                           // "margin-top": ($('.load-player').height() - $('.BrightcoveExperience').height()) / 2 + "px"
-                        });
                     };
 
                     return {
@@ -195,7 +185,6 @@ function initJQuery() {
                         },
                         
                         setSingleVideos: function (data) {
-                            console.log(data)
                             var w = data.videoFullLength.frameWidth,
                                 h = data.videoFullLength.frameHeight,
                                 num = h/(w/100),
@@ -220,17 +209,15 @@ function initJQuery() {
 
                             $(".single-video-attributes[data-video_id='"+videoId+"']").replaceWith(playerHTML);
 
-                            // add and execute the player script tag
-                            var s = document.createElement("script");
-                            s.src = "//players.brightcove.net/" + playerData.accountID + "/" + playerData.playerID + "_default/index.min.js";
-                            document.body.appendChild(s);
-                            s.onload = function () {
-                                player = videojs('singleVideo-'+videoId);
+                            $("#singleVideo-"+videoId).css({
+                                paddingBottom: paddingBottom + '%'
+                            });
 
-                                player.ready(function() {
-                                    loadVideo();
-                                });
-                            };
+                            player = videojs('singleVideo-'+videoId);
+                            
+                            player.ready(function() {
+                                loadVideo();
+                            });
                         }
                     }
                 })();
