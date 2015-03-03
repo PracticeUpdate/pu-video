@@ -1,6 +1,5 @@
 var jQueryScriptOutputted = false;
 var PU;
-var AUTOPLAY = document.getElementById("single-video-attributes").getAttribute("data-auto_play"); 
 var PUPLAYER;
 
 function loadScript(url, callback) {
@@ -199,11 +198,11 @@ function initJQuery() {
                             var w = data.videoFullLength.frameWidth,
                                 h = data.videoFullLength.frameHeight,
                                 num = h/(w/100),
-                                paddingBottom = Math.round(num * 100) / 100;
+                                paddingBottom = Math.round(num * 100) / 100,
+                                videoId = data.id,
+                                autoplay =  $(".single-video-attributes[data-video_id='"+videoId+"']").data("auto_play"); 
 
-                                AUTOPLAY == 'true' ? autoplay = 'autoplay' : autoplay = '';
-
-                            //$("#single-video-attributes").replaceWith('<video id="pu-single-embed-video-brightcove" '+ autoplay +' controls><source src='+data.FLVURL+' type="video/mp4">Your browser does not support HTML5 video.</video>');
+                                autoplay == 'true' ? autoplay = 'autoplay' : autoplay = '';
 
                             videoPlayer = '<video id="pu-single-embed-video-brightcove" '+ autoplay +' controls>';
                             videoPlayer +=  '<source src="'+data.FLVURL+'" type="video/mp4">';
@@ -215,7 +214,8 @@ function initJQuery() {
                             videoPlayer +=  '  </object>';
                             videoPlayer +=  '</video>';
 
-                            $("#single-video-attributes").replaceWith(videoPlayer);
+                            if( $(".single-video-attributes[data-video_id='"+videoId+"']").length > 0 ) 
+                                $(".single-video-attributes[data-video_id='"+videoId+"']").replaceWith(videoPlayer);
                         }
                     }
                 })();
@@ -233,21 +233,10 @@ function initJQuery() {
                         JScallback = $('#video-attributes').data('callback'),
                         JStoken = $('#video-attributes').data('token'),
                         rest = "command=find_playlist_by_id&playlist_id=" + playlistId + "&playlist_fields=" + listFields + "&video_fields=" + videoFields + "&media_delivery=" + mediaDelivery + "&callback=" + JScallback + "&token=" + JStoken,
-                        scriptSrc = path + rest,
-
-
-                        singleVideoId = $('#single-video-attributes').data('video_id'),
-                        singleToken = $('#single-video-attributes').data('token'),
-                        singleVideoFields = $('#single-video-attributes').data('video_fields'),
-                        singleMediaDelivery = $('#single-video-attributes').data('media_delivery'),
-                        singleCallback = $('#single-video-attributes').data('callback'),
-                        singleAutoPlay = $('#single-video-attributes').data('auto_play'),
-                        singleVideoRest = "command=find_video_by_id&video_id="+ singleVideoId +"&video_fields="+singleVideoFields+"&media_delivery="+singleMediaDelivery+"&callback=" + singleCallback + "&token=" + singleToken + "&autoplay=" + singleAutoPlay,
-                        scriptSrcSingle = path + singleVideoRest;
+                        scriptSrc = path + rest;
 
                     //Add Video Styles
                     //only if local var is empty
-
                     //check if we got any css with value: 'pu-video.css'
                     if (!$("link[href*='pu-video.css']").length && typeof PUVIDEO === 'undefined') {
                         var head = document.head,
@@ -268,15 +257,19 @@ function initJQuery() {
 
                     //load single video
                     //for each player
-                    // for (var i = 0; i < $('.single-video-attributes').length; ++i) {
-                    //     console.log(i);
-                    // }
-                    
-                    if( $('#single-video-attributes').length > 0 ) {
-                        script2.src = scriptSrcSingle;
-                        var head = document.getElementsByTagName("head")[0];
-                        head.appendChild(script2);
-                    }
+                    $( ".single-video-attributes" ).each(function() {
+                        var singleVideoId = $(this).data('video_id'),
+                            singleToken = $(this).data('token'),
+                            singleVideoFields = $(this).data('video_fields'),
+                            singleMediaDelivery = $(this).data('media_delivery'),
+                            singleCallback = $(this).data('callback'),
+                            singleVideoRest = "command=find_video_by_id&video_id="+ singleVideoId +"&video_fields="+singleVideoFields+"&media_delivery="+singleMediaDelivery+"&callback=" + singleCallback + "&token=" + singleToken,
+                            scriptSrcSingle = path + singleVideoRest;
+
+                        $.getScript( scriptSrcSingle, function( data, textStatus, jqxhr ) {
+                          console.log( "Load was performed." );
+                        });
+                    });
                 })();
             });
         }
