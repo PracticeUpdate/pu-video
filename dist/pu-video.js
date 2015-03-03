@@ -195,6 +195,7 @@ function initJQuery() {
                         },
                         
                         setSingleVideos: function (data) {
+                            console.log(data)
                             var w = data.videoFullLength.frameWidth,
                                 h = data.videoFullLength.frameHeight,
                                 num = h/(w/100),
@@ -206,19 +207,30 @@ function initJQuery() {
                                 if(check == true) 
                                     autoplay = 'autoplay'
 
+                            playerData = {
+                                "accountID": ACCOUNTID,
+                                "playerID": PLAYERID,
+                                "videoID": data.id
+                            };
 
-                            videoPlayer = '<video id="pu-single-embed-video-brightcove-'+videoId+'" '+ autoplay +' controls>';
-                            videoPlayer +=  '<source src="'+data.FLVURL+'" type="video/mp4">';
-                            videoPlayer +=  '  <object width="640" height="360" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0">';
-                            videoPlayer +=  '        <param name="SRC" value="player.swf?file='+data.FLVURL+'">';
-                            videoPlayer +=  '        <embed src="player.swf?file='+data.FLVURL+'" width="640"';
-                            videoPlayer +=  '          height="360"></embed>';
-                            videoPlayer +=  '        <p>Please update your browser or install Flash</p>';
-                            videoPlayer +=  '  </object>';
-                            videoPlayer +=  '</video>';
+                            playerTemplate = '<video id="singleVideo-'+videoId+'" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video>';
+                            template = Handlebars.compile(playerTemplate);
+                            playerHTML = template(playerData);
 
-                            if( $(".single-video-attributes[data-video_id='"+videoId+"']").length > 0 ) 
-                                $(".single-video-attributes[data-video_id='"+videoId+"']").replaceWith(videoPlayer);
+
+                            $(".single-video-attributes[data-video_id='"+videoId+"']").replaceWith(playerHTML);
+
+                            // add and execute the player script tag
+                            var s = document.createElement("script");
+                            s.src = "//players.brightcove.net/" + playerData.accountID + "/" + playerData.playerID + "_default/index.min.js";
+                            document.body.appendChild(s);
+                            s.onload = function () {
+                                player = videojs('singleVideo-'+videoId);
+
+                                player.ready(function() {
+                                    loadVideo();
+                                });
+                            };
                         }
                     }
                 })();
