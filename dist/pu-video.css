@@ -13,7 +13,7 @@
 /* close commented backslash hack */
 
 .vjs-poster {
-	background-size: cover;
+	background-size: cover !important;
 }
 
 .pu-embed-video-brightcove {

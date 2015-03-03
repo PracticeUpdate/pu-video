@@ -1,6 +1,7 @@
 var jQueryScriptOutputted = false;
 var PU;
 var AUTOPLAY = document.getElementById("single-video-attributes").getAttribute("data-auto_play"); 
+var PUPLAYER;
 
 function loadScript(url, callback) {
     var script = document.createElement("script")
@@ -77,6 +78,8 @@ function initJQuery() {
                         s.onload = function () {
                             //console.log("video js loaded");
                             player = videojs("pu_video");
+
+                            PUPLAYER = videojs("pu_video");
 
                             // play the video
                             player.ready(function() {
@@ -264,6 +267,11 @@ function initJQuery() {
                     }
 
                     //load single video
+                    //for each player
+                    // for (var i = 0; i < $('.single-video-attributes').length; ++i) {
+                    //     console.log(i);
+                    // }
+                    
                     if( $('#single-video-attributes').length > 0 ) {
                         script2.src = scriptSrcSingle;
                         var head = document.getElementsByTagName("head")[0];
