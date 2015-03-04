@@ -46,41 +46,30 @@ function initJQuery() {
                     var currentVideoIndexClick;
                     var click;
 
-                    var ACCOUNTID = $('#video-attributes').data('account');
-                    var PLAYERID = $('#video-attributes').data('player');
+                    var ACCOUNTID = $('#video-attributes').data('account') || $('#global-video-attributes').data('account');
+                    var PLAYERID = $('#video-attributes').data('player') || $('#global-video-attributes').data('player');
 
 
                     var SINGLEVIDEOID = $('#single-video-attributes').data('video_id');
 
-                    var addPlayer = function (accountID, playerID, videoID, totalVideos) {
-                        //console.log('create video player with video id ' + videoID);
-                        playerData = {
-                            "accountID": accountID,
-                            "playerID": playerID,
-                            "videoID": videoID
-                        };
-
-                        playerTemplate = '<video id="pu_video" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video>';
-                        template = Handlebars.compile(playerTemplate);
-                        playerHTML = template(playerData);
-
-
-                        $(".video-player").html(playerHTML);
-
-                        if(totalVideos != 0)
-                            $('.video-playlist').prepend('<p class="video-label">Current Video: <span class="j-current-view">1</span> out of <span class="j-total-videos">' + totalVideos + '</span></p>');
-
+                    var executeScript = function (accountID, playerID, totalVideos, videoId) {
                         // add and execute the player script tag
                         var s = document.createElement("script");
-                        s.src = "//players.brightcove.net/" + playerData.accountID + "/" + playerData.playerID + "_default/index.min.js";
+                        s.src = "//players.brightcove.net/" + accountID + "/" + playerID + "_default/index.min.js";
                         document.body.appendChild(s);
                         s.onload = function () {
+                            onScriptReady(totalVideos)
+                        };
+                    };
+
+                    onScriptReady = function(totalVideos, videoId) {
+                        if(totalVideos !== 0) {
                             //console.log("video js loaded");
                             player = videojs("pu_video");
                             PUPLAYER = videojs("pu_video");
 
                             // play the video
-                            player.ready(function() {
+                            PUPLAYER.ready(function() {
                                 //console.log("ready");
                                 loadVideo();
                                 setTimeout(function() {
@@ -89,10 +78,67 @@ function initJQuery() {
                             });
 
                             // listen for the "ended" event and play the video
-                            player.on("ended", function () {
+                            PUPLAYER.on("ended", function () {
+                                loadVideo();
+                            });
+                        } else {
+                            player = videojs('singleVideo-'+videoId);
+                            
+                            player('singleVideo-'+videoId).ready(function() {
                                 loadVideo();
                             });
                         };
+                    };
+
+                    var addPlayer = function (accountID, playerID, videoID, totalVideos, type, paddingBottom) {
+                        if(type == 'playlist'){
+                            //console.log('create video player with video id ' + videoID);
+                            playerData = {
+                                "accountID": accountID,
+                                "playerID": playerID,
+                                "videoID": videoID
+                            };
+
+                            playerTemplate = '<video id="pu_video" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video>';
+                            template = Handlebars.compile(playerTemplate);
+                            playerHTML = template(playerData);
+
+
+                            $(".video-player").html(playerHTML);
+
+                            if(totalVideos != 0)
+                                $('.video-playlist').prepend('<p class="video-label">Current Video: <span class="j-current-view">1</span> out of <span class="j-total-videos">' + totalVideos + '</span></p>');
+
+                            $('.pu-embed-video-brightcove.load-player .video-player').css({
+                                paddingBottom: paddingBottom + '%'
+                            });
+                        }
+
+                        if (type == 'singleVideo') {
+                            playerData = {
+                                "accountID": ACCOUNTID,
+                                "playerID": PLAYERID,
+                                "videoID": videoID
+                            };
+
+                            playerTemplate = '<video id="singleVideo-'+videoId+'" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video>';
+                            template = Handlebars.compile(playerTemplate);
+                            playerHTML = template(playerData);
+
+
+                            $(".single-video-attributes[data-video_id='"+videoId+"']").replaceWith(playerHTML);
+
+                            //console.log(paddingBottom);
+                            $("#singleVideo-"+videoId).css({
+                                paddingBottom: paddingBottom + '%'
+                            });
+
+                        };
+
+                        // add and execute the player script tag
+                        setTimeout(function() {
+                            executeScript(accountID, playerID, totalVideos, videoId); 
+                        }, 500);
                     };
 
                     loadVideo = function (click) {
@@ -177,11 +223,7 @@ function initJQuery() {
                             });
 
                             // create player with first video loaded
-                            addPlayer(ACCOUNTID, PLAYERID, firstVideo, total);
-
-                            $('.pu-embed-video-brightcove.load-player .video-player').css({
-                                paddingBottom: paddingBottom + '%'
-                            });
+                            addPlayer(ACCOUNTID, PLAYERID, firstVideo, total, 'playlist', paddingBottom);
                         },
                         
                         setSingleVideos: function (data) {
@@ -196,29 +238,8 @@ function initJQuery() {
                                 videoId = data.id,
                                 check =  $(".single-video-attributes[data-video_id='"+videoId+"']").data("auto_play");
 
-                            playerData = {
-                                "accountID": ACCOUNTID,
-                                "playerID": PLAYERID,
-                                "videoID": data.id
-                            };
-
-                            playerTemplate = '<video id="singleVideo-'+videoId+'" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video>';
-                            template = Handlebars.compile(playerTemplate);
-                            playerHTML = template(playerData);
-
-
-                            $(".single-video-attributes[data-video_id='"+videoId+"']").replaceWith(playerHTML);
-
-                            //console.log(paddingBottom);
-                            $("#singleVideo-"+videoId).css({
-                                paddingBottom: paddingBottom + '%'
-                            });
-
-                            player = videojs('singleVideo-'+videoId);
-                            
-                            videojs('singleVideo-'+videoId).ready(function() {
-                                loadVideo();
-                            });
+                            // create player with first video loaded
+                            addPlayer(ACCOUNTID, PLAYERID, videoId, 0, 'singleVideo', paddingBottom);
                         }
                     }
                 })();
