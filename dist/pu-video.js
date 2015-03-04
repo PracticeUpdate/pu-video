@@ -185,16 +185,16 @@ function initJQuery() {
                         },
                         
                         setSingleVideos: function (data) {
-                            var w = data.videoFullLength.frameWidth,
+                            //console.dir(data.videoFullLength.frameHeight)
+                            //console.dir(data.videoFullLength.frameWidth)
+
+                            var w = data.videoFullLength.frameWidth, 
                                 h = data.videoFullLength.frameHeight,
                                 num = h/(w/100),
-                                paddingBottom = Math.round(num * 100) / 100,
-                                videoId = data.id,
-                                check =  $(".single-video-attributes[data-video_id='"+videoId+"']").data("auto_play"),
-                                autoplay;
+                                paddingBottom = Math.round(num * 100) / 100;
 
-                                if(check == true) 
-                                    autoplay = 'autoplay'
+                                videoId = data.id,
+                                check =  $(".single-video-attributes[data-video_id='"+videoId+"']").data("auto_play");
 
                             playerData = {
                                 "accountID": ACCOUNTID,
@@ -209,13 +209,14 @@ function initJQuery() {
 
                             $(".single-video-attributes[data-video_id='"+videoId+"']").replaceWith(playerHTML);
 
+                            //console.log(paddingBottom);
                             $("#singleVideo-"+videoId).css({
                                 paddingBottom: paddingBottom + '%'
                             });
 
                             player = videojs('singleVideo-'+videoId);
                             
-                            player.ready(function() {
+                            videojs('singleVideo-'+videoId).ready(function() {
                                 loadVideo();
                             });
                         }
@@ -269,7 +270,7 @@ function initJQuery() {
                             scriptSrcSingle = path + singleVideoRest;
 
                         $.getScript( scriptSrcSingle, function( data, textStatus, jqxhr ) {
-                          console.log( "Load was performed." );
+                          //console.log( "Load was performed." );
                         });
                     });
                 })();

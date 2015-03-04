@@ -1,5 +1,6 @@
 .video-js {
 	width: 100% !important;
+	height: auto !important;
 }
 .clearfix:after {
      visibility: hidden;
