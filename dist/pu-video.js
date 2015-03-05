@@ -58,7 +58,7 @@ function initJQuery() {
                         s.src = "//players.brightcove.net/" + accountID + "/" + playerID + "_default/index.min.js";
                         document.body.appendChild(s);
                         s.onload = function () {
-                            onScriptReady(totalVideos)
+                            onScriptReady(totalVideos, videoId)
                         };
                     };
 
@@ -82,11 +82,11 @@ function initJQuery() {
                                 loadVideo();
                             });
                         } else {
-                            player = videojs('singleVideo-'+videoId);
+                            // player = videojs('singleVideo-'+videoId);
                             
-                            player('singleVideo-'+videoId).ready(function() {
-                                loadVideo();
-                            });
+                            // player('singleVideo-'+videoId).ready(function() {
+                            //     loadVideo();
+                            // });
                         };
                     };
 
