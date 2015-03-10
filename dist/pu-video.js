@@ -64,7 +64,6 @@ function initJQuery() {
 
                     onScriptReady = function(totalVideos, videoId) {
                         if(totalVideos !== 0) {
-                            //console.log("video js loaded");
                             player = videojs("pu_video");
                             PUPLAYER = videojs("pu_video");
 
@@ -81,59 +80,46 @@ function initJQuery() {
                             PUPLAYER.on("ended", function () {
                                 loadVideo();
                             });
-                        } else {
-                            // player = videojs('singleVideo-'+videoId);
-                            
-                            // player('singleVideo-'+videoId).ready(function() {
-                            //     loadVideo();
-                            // });
-                        };
+                        }
                     };
 
                     var addPlayer = function (accountID, playerID, videoID, totalVideos, type, paddingBottom) {
-                        if(type == 'playlist'){
-                            //console.log('create video player with video id ' + videoID);
-                            playerData = {
-                                "accountID": accountID,
-                                "playerID": playerID,
-                                "videoID": videoID
-                            };
+                        switch (type) {
+                            case 'playlist':
+                                playerData = {
+                                    "accountID": accountID,
+                                    "playerID": playerID,
+                                    "videoID": videoID
+                                };
 
-                            playerTemplate = '<video id="pu_video" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video>';
-                            template = Handlebars.compile(playerTemplate);
-                            playerHTML = template(playerData);
+                                playerTemplate = '<video id="pu_video" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video>';
+                                template = Handlebars.compile(playerTemplate);
+                                playerHTML = template(playerData);
 
 
-                            $(".video-player").html(playerHTML);
+                                $(".video-player").html(playerHTML);
 
-                            if(totalVideos != 0)
-                                $('.video-playlist').prepend('<p class="video-label">Current Video: <span class="j-current-view">1</span> out of <span class="j-total-videos">' + totalVideos + '</span></p>');
+                                if(totalVideos != 0)
+                                    $('.video-playlist').prepend('<p class="video-label">Current Video: <span class="j-current-view">1</span> out of <span class="j-total-videos">' + totalVideos + '</span></p>');
 
-                            $('.pu-embed-video-brightcove.load-player .video-player').css({
-                                paddingBottom: paddingBottom + '%'
-                            });
+                                $('.pu-embed-video-brightcove.load-player .video-player').css({
+                                    paddingBottom: paddingBottom + '%'
+                                });
+
+                                break;
+                            case 'singleVideo':
+                                playerTemplate = '<video id="singleVideo-'+videoId+'" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video>';
+                                template = Handlebars.compile(playerTemplate);
+                                playerHTML = template(playerData);
+
+
+                                $(".single-video-attributes[data-video_id='"+videoId+"']").replaceWith(playerHTML);
+
+                                $("#singleVideo-"+videoId).css({
+                                    paddingBottom: paddingBottom + '%'
+                                });
+                                break;
                         }
-
-                        if (type == 'singleVideo') {
-                            playerData = {
-                                "accountID": ACCOUNTID,
-                                "playerID": PLAYERID,
-                                "videoID": videoID
-                            };
-
-                            playerTemplate = '<video id="singleVideo-'+videoId+'" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video>';
-                            template = Handlebars.compile(playerTemplate);
-                            playerHTML = template(playerData);
-
-
-                            $(".single-video-attributes[data-video_id='"+videoId+"']").replaceWith(playerHTML);
-
-                            //console.log(paddingBottom);
-                            $("#singleVideo-"+videoId).css({
-                                paddingBottom: paddingBottom + '%'
-                            });
-
-                        };
 
                         // add and execute the player script tag
                         setTimeout(function() {
