@@ -164,11 +164,12 @@ function initJQuery() {
 
                     return {
                         setVideos: function (data) {
-                            var playList = data,
-                                total = playList.videos.length,
+                            playList = data; //set it globally; 
+                            
+                            var total = data.videos.length,
                                 //this need to be dynamic - size may vary based on video
-                                w = playList.videos[0].videoFullLength.frameWidth,    //
-                                h = playList.videos[0].videoFullLength.frameHeight,   //
+                                w = data.videos[0].videoFullLength.frameWidth,    //
+                                h = data.videos[0].videoFullLength.frameHeight,   //
                                 ////////////////////////////////////////////////////////
                                 num = h/(w/100),
                                 paddingBottom = Math.round(num * 100) / 100;
@@ -177,12 +178,12 @@ function initJQuery() {
 
                             // initialize playlist
                             for (var i = 0; i < total; i++) {
-                                str = '<li class="list-group-item j-play-video" data-index="' + i + '" data-id="' + playList.videos[i].id + '"><div class="media"><a class="pull-left" href="#"><img class="media-object img-responsive j-pu-ellipse" src="' + playList.videos[i].thumbnailURL + '" alt="' + playList.videos[i].name + '" ></a><div class="media-body"><h4 class="media-heading">' + playList.videos[i].shortDescription + '</h4></div></div></li>';
+                                str = '<li class="list-group-item j-play-video" data-index="' + i + '" data-id="' + data.videos[i].id + '"><div class="media"><a class="pull-left" href="#"><img class="media-object img-responsive j-pu-ellipse" src="' + data.videos[i].thumbnailURL + '" alt="' + data.videos[i].name + '" ></a><div class="media-body"><h4 class="media-heading">' + data.videos[i].shortDescription + '</h4></div></div></li>';
 
                                 $(".j-drop-data").append(str);
 
                                 if (i == 0)
-                                    firstVideo = playList.videos[i].id;
+                                    firstVideo = data.videos[i].id;
                             }
 
                             // initialize event handler for each video in playlist
