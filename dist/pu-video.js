@@ -83,14 +83,14 @@ function initJQuery() {
                     };
 
                     var addPlayer = function (accountID, playerID, videoID, totalVideos, type, paddingBottom) {
+                        playerData = {
+                            "accountID": accountID,
+                            "playerID": playerID,
+                            "videoID": videoID
+                        };
+                        
                         switch (type) {
                             case 'playlist':
-                                playerData = {
-                                    "accountID": accountID,
-                                    "playerID": playerID,
-                                    "videoID": videoID
-                                };
-
                                 playerTemplate = '<video id="pu_video" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video>';
                                 template = Handlebars.compile(playerTemplate);
                                 playerHTML = template(playerData);
