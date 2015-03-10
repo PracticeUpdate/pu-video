@@ -69,7 +69,6 @@ function initJQuery() {
 
                             // play the video
                             PUPLAYER.ready(function() {
-                                //console.log("ready");
                                 loadVideo();
                                 setTimeout(function() {
                                     $(".video-player").css('opacity', '1');
@@ -165,12 +164,8 @@ function initJQuery() {
 
                     return {
                         setVideos: function (data) {
-                            playList = data;
-                            //console.log("playList returned");
-
-                            //console.log(data);
-
-                            var total = playList.videos.length,
+                            var playList = data,
+                                total = playList.videos.length,
                                 //this need to be dynamic - size may vary based on video
                                 w = playList.videos[0].videoFullLength.frameWidth,    //
                                 h = playList.videos[0].videoFullLength.frameHeight,   //
