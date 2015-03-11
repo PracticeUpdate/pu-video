@@ -1,5 +1,5 @@
 var jQueryScriptOutputted = false;
-var PU;
+var PUBPLAYER;
 var PUPLAYER;
 
 function loadScript(url, callback) {
@@ -39,7 +39,7 @@ function initJQuery() {
     } else {
         if (typeof(Handlebars) == 'undefined') {
             loadScript("http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js", function () {
-                PU = (function () {
+                PUBPLAYER = (function () {
                     var player, currentVideoIndex = 0;
                     var playList;
                     var ellipsis = "...";
@@ -107,7 +107,7 @@ function initJQuery() {
 
                                 break;
                             case 'singleVideo':
-                                playerTemplate = '<video id="singleVideo-'+videoId+'" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video>';
+                                playerTemplate = '<div class="pu-embed-video-brightcove clearfix"><video id="singleVideo-'+videoId+'" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video></div>';
                                 template = Handlebars.compile(playerTemplate);
                                 playerHTML = template(playerData);
 
@@ -191,7 +191,6 @@ function initJQuery() {
                                 e.preventDefault();
                                 var $this = $(this),
                                     id = $this.data('id');
-
                                 currentVideoIndexClick = $this.data('index');
 
                                 loadVideo(currentVideoIndexClick);
