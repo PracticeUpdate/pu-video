@@ -209,9 +209,6 @@ function initJQuery() {
                         },
                         
                         setSingleVideos: function (data) {
-                            //console.dir(data.videoFullLength.frameHeight)
-                            //console.dir(data.videoFullLength.frameWidth)
-
                             var w = data.videoFullLength.frameWidth, 
                                 h = data.videoFullLength.frameHeight,
                                 num = h/(w/100),
