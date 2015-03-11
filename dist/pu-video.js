@@ -1,5 +1,5 @@
 var jQueryScriptOutputted = false;
-var PUBPLAYER;
+var PU = PU || {};
 var PUPLAYER;
 
 function loadScript(url, callback) {
@@ -39,7 +39,7 @@ function initJQuery() {
     } else {
         if (typeof(Handlebars) == 'undefined') {
             loadScript("http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js", function () {
-                PUBPLAYER = (function () {
+                PU.video = (function () {
                     var player, currentVideoIndex = 0;
                     var playList;
                     var ellipsis = "...";
