@@ -51,12 +51,12 @@ Make sure to include the js include in this repo.
 For demo example review the dir folder.
 
 **NOTE**: If you are only loading a single video w/o the playlist you will have to also include this small html element:
-
+```
 <div id="global-video-attributes" class="hide"
 	data-account="2421677169001"
 	data-player="f73313ad-8e1b-4817-b39f-35b3b974ec9d"
 ></div>
-
+```
 
 ### How to use css? ###
 By defaul we are loading css from s3:
