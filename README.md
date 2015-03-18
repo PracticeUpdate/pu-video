@@ -112,8 +112,7 @@ http://support.brightcove.com/en/video-cloud/docs/player-configuration-parameter
 
 ### ScreenShots ###
 
- https://raw.githubusercontent.com/PracticeUpdate/pu-video/master/dir/screenshots/playlist.png - (single video)
- https://raw.githubusercontent.com/PracticeUpdate/pu-video/master/dir/screenshots/single.png - (playlist)
+ ![Optimized-PracticeUpdate   Explore.png](https://bitbucket.org/repo/LdMyqr/images/1272026521-Optimized-PracticeUpdate%20%20%20Explore.png)
 
 
 ### Contribution guidelines ###
