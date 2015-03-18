@@ -63,8 +63,8 @@ By defaul we are loading css from s3:
 http://pushare.s3.amazonaws.com/pu-video/latest/pu-video.css
 
 You can always overwrite it , or exclude it by doing one of the following:
-* Creating a gloabal variable call PUVIDEO. 
-* Including a pu-video.css stylesheet file 
+1. Creating a gloabal variable call PUVIDEO. 
+1. Including a pu-video.css stylesheet file 
 
 ### What does the markup looks like? ###
 The html markup is super simple and looks like this:
