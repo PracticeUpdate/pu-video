@@ -21,38 +21,34 @@ To put the video in your site, just add the following code inside the body - the
 
 For Playlist:
 ```
-<div id="video-attributes" class="hide" 
-    data-token="{{toke}}" 
-    data-callback="{{callback}}"
-    data-playlist_id="{{player id}}" 
-    data-list_fields="id,name,playListType,videos,videoIds,shortDescription" 
-    data-video_fields="id,name,shortDescription,longDescription,linkURL,linkText,thumbnailURL,VideoFullLength" 
-    data-media_delivery="default" 
-    data-player_key="{{player key}}"
-	data-account="2421677169001"
-	data-player="f73313ad-8e1b-4817-b39f-35b3b974ec9d">
-</div>
+	<div id="video-attributes" class="hide"
+	  data-token="wOjLIZimzyxVTO_PUfLiy8yGM4k6VHXkpDaHPpYRahivuKgPorbErg.."
+	  data-callback="PU.video.setVideos"
+	  data-playlist_id="3813368292001"
+	  data-list_fields="id,name,playListType,videos,videoIds,shortDescription"
+	  data-video_fields="id,name,shortDescription,longDescription,linkURL,linkText,thumbnailURL,VideoFullLength"
+	  data-media_delivery="default"
+	  data-player_key="AQ~~,AAACM9c1GWk~,cHluVGBVm_U_6lA3slZh2R6SnvZvnmwG"
+	  data-account="2421677169001"
+	  data-player="f73313ad-8e1b-4817-b39f-35b3b974ec9d"
+	></div>
 ```
 
 For single player:
 ```
-<div id="single-video-attributes" class="hide"
-  data-token="wOjLIZimzyxVTO_PUfLiy8yGM4k6VHXkpDaHPpYRahivuKgPorbErg.."
-  data-video_id="3899652909001"		
-  data-video_fields="name,length,FLVURL,VideoFullLength"
-  data-media_delivery="http"
-  data-callback="PU.setSingleVideos"
-  data-auto_play="true"
+	<div id="single-video-attributes-ad" class="single-video-attributes hide" data-video-index="0"
+	  data-token="wOjLIZimzyxVTO_PUfLiy8yGM4k6VHXkpDaHPpYRahivuKgPorbErg.."
+	  data-video_id="3006672189001"		
+	  data-video_fields="name,length,FLVURL,VideoFullLength,id"
+	  data-media_delivery="http"
+	  data-callback="PU.video.setSingleVideos"
+	></div>	
 ></div>
 ```
 
 Make sure to include the js include in this repo.
 
-For demo review the dir folder.
-
-### How to use it via s3 hosted files? ###
-By default we use s3 hosted files.
-
+For demo example review the dir folder.
 
 ### How to use css? ###
 By defaul we are loading css from s3:
