@@ -50,7 +50,7 @@ Make sure to include the js include in this repo.
 
 For demo example review the dir folder.
 
-Note: If you are only loading a single video w/o the playlist you will have to also include this small html element:
+**NOTE**: If you are only loading a single video w/o the playlist you will have to also include this small html element:
 
 <div id="global-video-attributes" class="hide"
 	data-account="2421677169001"
