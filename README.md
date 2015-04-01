@@ -4,7 +4,7 @@ This README would normally document whatever steps are necessary to get your app
 
 ### What is this repository for? ###
 
-This repo will create a video-player with playlist. powered by [Brightcove](http://support.brightcove.com/en/video-cloud/docs)
+This repo will create a video-player and/or a playlist. powered by [Brightcove](http://support.brightcove.com/en/video-cloud/docs)
 
 
 ### How to install via bower ###
@@ -21,46 +21,52 @@ To put the video in your site, just add the following code inside the body - the
 
 For Playlist:
 ```
-<div id="video-attributes" class="hide" 
-    data-token="{{toke}}" 
-    data-callback="{{callback}}"
-    data-playlist_id="{{player id}}" 
-    data-list_fields="id,name,playListType,videos,videoIds,shortDescription" 
-    data-video_fields="id,name,shortDescription,longDescription,linkURL,linkText,thumbnailURL,VideoFullLength" 
-    data-media_delivery="default" 
-    data-player_key="{{player key}}"
-	data-account="2421677169001"
-	data-player="f73313ad-8e1b-4817-b39f-35b3b974ec9d">
-</div>
+	<div id="video-attributes" class="hide"
+	  data-token="wOjLIZimzyxVTO_PUfLiy8yGM4k6VHXkpDaHPpYRahivuKgPorbErg.."
+	  data-callback="PU.video.setVideos"
+	  data-playlist_id="3813368292001"
+	  data-list_fields="id,name,playListType,videos,videoIds,shortDescription"
+	  data-video_fields="id,name,shortDescription,longDescription,linkURL,linkText,thumbnailURL,VideoFullLength"
+	  data-media_delivery="default"
+	  data-player_key="AQ~~,AAACM9c1GWk~,cHluVGBVm_U_6lA3slZh2R6SnvZvnmwG"
+	  data-account="2421677169001"
+	  data-player="f73313ad-8e1b-4817-b39f-35b3b974ec9d"
+	></div>
 ```
 
 For single player:
 ```
-<div id="single-video-attributes" class="hide"
-  data-token="wOjLIZimzyxVTO_PUfLiy8yGM4k6VHXkpDaHPpYRahivuKgPorbErg.."
-  data-video_id="3899652909001"		
-  data-video_fields="name,length,FLVURL,VideoFullLength"
-  data-media_delivery="http"
-  data-callback="PU.setSingleVideos"
-  data-auto_play="true"
+	<div id="single-video-attributes-ad" class="single-video-attributes hide" data-video-index="0"
+	  data-token="wOjLIZimzyxVTO_PUfLiy8yGM4k6VHXkpDaHPpYRahivuKgPorbErg.."
+	  data-video_id="3006672189001"		
+	  data-video_fields="name,length,FLVURL,VideoFullLength,id"
+	  data-media_delivery="http"
+	  data-callback="PU.video.setSingleVideos"
+	></div>	
 ></div>
 ```
 
 Make sure to include the js include in this repo.
 
-For demo review the dir folder.
+For demo example review the dir folder.
 
-### How to use it via s3 hosted files? ###
-By default we use s3 hosted files.
-
+**NOTE**: If you are only loading a single video w/o the playlist you will have to also include this small html element:
+```
+<div id="global-video-attributes" class="hide"
+	data-account="2421677169001"
+	data-player="f73313ad-8e1b-4817-b39f-35b3b974ec9d"
+></div>
+```
 
 ### How to use css? ###
 By defaul we are loading css from s3:
 http://pushare.s3.amazonaws.com/pu-video/latest/pu-video.css
 
 You can always overwrite it , or exclude it by doing one of the following:
-* Creating a gloabal variable call PUVIDEO. 
-* Including a pu-video.css stylesheet file 
+
+1. Creating a gloabal variable call PUVIDEO. 
+
+1. Including a pu-video.css stylesheet file 
 
 ### What does the markup looks like? ###
 The html markup is super simple and looks like this:
@@ -106,8 +112,7 @@ http://support.brightcove.com/en/video-cloud/docs/player-configuration-parameter
 
 ### ScreenShots ###
 
- https://raw.githubusercontent.com/PracticeUpdate/pu-video/master/dir/screenshots/playlist.png - (single video)
- https://raw.githubusercontent.com/PracticeUpdate/pu-video/master/dir/screenshots/single.png - (playlist)
+ ![Optimized-PracticeUpdate   Explore.png](https://bitbucket.org/repo/LdMyqr/images/1272026521-Optimized-PracticeUpdate%20%20%20Explore.png)
 
 
 ### Contribution guidelines ###
