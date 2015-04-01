@@ -258,7 +258,8 @@ function initJQuery() {
                         JScallback = $('#video-attributes').data('callback'),
                         JStoken = $('#video-attributes').data('token'),
                         rest = "command=find_playlist_by_id&playlist_id=" + playlistId + "&playlist_fields=" + listFields + "&video_fields=" + videoFields + "&media_delivery=" + mediaDelivery + "&callback=" + JScallback + "&token=" + JStoken,
-                        scriptSrc = path + rest;
+                        scriptSrc = path + rest,
+                        time = 1000;
 
                     //Add Video Styles
                     //only if local var is empty
@@ -291,9 +292,13 @@ function initJQuery() {
                             singleVideoRest = "command=find_video_by_id&video_id="+ singleVideoId +"&video_fields="+singleVideoFields+"&media_delivery="+singleMediaDelivery+"&callback=" + singleCallback + "&token=" + singleToken,
                             scriptSrcSingle = path + singleVideoRest;
 
-                        $.getScript( scriptSrcSingle, function( data, textStatus, jqxhr ) {
-                          //console.log( "Load was performed." );
-                        });
+
+                        setTimeout( function(){ 
+                            $.getScript( scriptSrcSingle, function( data, textStatus, jqxhr ) {
+                              console.log( "Load was performed." );
+                            });
+                        }, time);
+                        time += 1000;
                     });
                 })();
             });
