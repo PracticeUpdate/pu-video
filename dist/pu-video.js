@@ -82,7 +82,7 @@ function initJQuery() {
                                 loadVideo();
                             });
                         } else {
-                            if($('#pu_video').length === 0 && singleCalled === false) {
+                            if($('#pu_video').length === 0 && singleCalled === false && !$("#singleVideo-"+videoID+" .vjs-big-play-button").parent('.modal-video-ad')) {
                                 // alert("singleVideo-"+videoID)
                                 // playerSingle = videojs("singleVideo-"+videoID);
                                 // SINGLEPUPLAYER = videojs("singleVideo-"+videoID);
