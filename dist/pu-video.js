@@ -82,7 +82,7 @@ function initJQuery() {
                                 loadVideo();
                             });
                         } else {
-                            if($('#pu_video').length === 0 && singleCalled === false && !$("#singleVideo-"+videoID+" .vjs-big-play-button").parent('.modal-video-ad')) {
+                            if($('#pu_video').length === 0 && singleCalled === false && $("#singleVideo-"+videoID).data('auto_play') === true) {
                                 // alert("singleVideo-"+videoID)
                                 // playerSingle = videojs("singleVideo-"+videoID);
                                 // SINGLEPUPLAYER = videojs("singleVideo-"+videoID);
@@ -97,7 +97,6 @@ function initJQuery() {
 
                                 $("#singleVideo-"+videoID+" .vjs-big-play-button").trigger('click');
 
-
                                 //to stop player
                                 // $("#singleVideo-"+videoID+" .vjs-control-text:contains('Pause')").trigger('click');
 
@@ -106,7 +105,7 @@ function initJQuery() {
                         }
                     };
 
-                    var addPlayer = function (accountID, playerID, videoID, totalVideos, type, paddingBottom) {
+                    var addPlayer = function (accountID, playerID, videoID, totalVideos, type, paddingBottom, auto_play) {
                         playerData = {
                             "accountID": accountID,
                             "playerID": playerID,
@@ -135,8 +134,9 @@ function initJQuery() {
                                 template = Handlebars.compile(playerTemplate);
                                 playerHTML = template(playerData);
 
-
                                 $(".single-video-attributes[data-video_id='"+videoID+"']").replaceWith(playerHTML);
+
+                                $("#singleVideo-"+videoID).attr('data-auto_play', auto_play);
 
                                 $("#singleVideo-"+videoID).css({
                                     paddingBottom: paddingBottom + '%'
@@ -228,7 +228,7 @@ function initJQuery() {
                             });
 
                             // create player with first video loaded
-                            addPlayer(ACCOUNTID, PLAYERID, firstVideo, total, 'playlist', paddingBottom);
+                            addPlayer(ACCOUNTID, PLAYERID, firstVideo, total, 'playlist', paddingBottom, null);
                         },
                         
                         setSingleVideos: function (data) {
@@ -238,9 +238,10 @@ function initJQuery() {
                                 paddingBottom = Math.round(num * 100) / 100;
 
                                 videoID = data.id,
-                                check =  $(".single-video-attributes[data-video_id='"+videoID+"']").data("auto_play");
+                                auto_play =  $(".single-video-attributes[data-video_id='"+videoID+"']").data("auto_play");
+
                             // create player with first video loaded
-                            addPlayer(ACCOUNTID, PLAYERID, videoID, 0, 'singleVideo', paddingBottom);
+                            addPlayer(ACCOUNTID, PLAYERID, videoID, 0, 'singleVideo', paddingBottom, auto_play);
                         }
                     }
                 })();
