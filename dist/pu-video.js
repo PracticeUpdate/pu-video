@@ -48,19 +48,17 @@ function initJQuery() {
                     var click;
                     var singleCalled = false;
 
-                    var ACCOUNTID = $('#video-attributes').data('account') || $('.single-video-attributes').data('account');
-                    var PLAYERID = $('#video-attributes').data('player') || $('.single-video-attributes').data('player');
-
-
-                    var SINGLEVIDEOID = $('#single-video-attributes').data('video_id');
+                    var ACCOUNTID = $('.video-attributes').data('account');
+                    var PLAYERID = $('.video-attributes').data('player');
 
                     var executeScript = function (accountID, playerID, totalVideos, videoID) {
                         // add and execute the player script tag
                         var s = document.createElement("script");
                         s.src = "//players.brightcove.net/" + accountID + "/" + playerID + "_default/index.min.js";
                         document.body.appendChild(s);
+
                         s.onload = function () {
-                            onScriptReady(totalVideos, videoID)
+                            onScriptReady(totalVideos, videoID);
                         };
                     };
 
@@ -118,7 +116,6 @@ function initJQuery() {
                                 template = Handlebars.compile(playerTemplate);
                                 playerHTML = template(playerData);
 
-
                                 $(".video-player").html(playerHTML);
 
                                 if(totalVideos != 0)
@@ -134,7 +131,7 @@ function initJQuery() {
                                 template = Handlebars.compile(playerTemplate);
                                 playerHTML = template(playerData);
 
-                                $(".single-video-attributes[data-video_id='"+videoID+"']").replaceWith(playerHTML);
+                                $(".video-attributes[data-video_id='"+videoID+"']").replaceWith(playerHTML);
 
                                 $("#singleVideo-"+videoID).attr('data-auto_play', auto_play);
 
@@ -145,9 +142,7 @@ function initJQuery() {
                         }
 
                         // add and execute the player script tag
-                        setTimeout(function() {
-                            executeScript(accountID, playerID, totalVideos, videoID); 
-                        }, 500);
+                        executeScript(accountID, playerID, totalVideos, videoID); 
                     };
 
                     loadVideo = function (click) {
@@ -198,7 +193,7 @@ function initJQuery() {
                                 num = h/(w/100),
                                 paddingBottom = Math.round(num * 100) / 100;
 
-                            $("#video-attributes").replaceWith("<div class=\"pu-embed-video-brightcove load-player clearfix\"><div class=\"video-player\" style='opacity:0'></div><div class=\"video-playlist\"><span class=\"data-drop j-drop-data\"></span></div></div>");
+                            $(".video-attributes[data-type='playlist']").replaceWith("<div class=\"pu-embed-video-brightcove load-player clearfix\"><div class=\"video-player\" style='opacity:0'></div><div class=\"video-playlist\"><span class=\"data-drop j-drop-data\"></span></div></div>");
 
                             // initialize playlist
                             for (var i = 0; i < total; i++) {
@@ -238,8 +233,8 @@ function initJQuery() {
                                 paddingBottom = Math.round(num * 100) / 100;
 
                                 videoID = data.id,
-                                auto_play =  $(".single-video-attributes[data-video_id='"+videoID+"']").data("auto_play");
-
+                                auto_play =  $(".video-attributes[data-video_id='"+videoID+"']").data("auto_play");
+                            
                             // create player with first video loaded
                             addPlayer(ACCOUNTID, PLAYERID, videoID, 0, 'singleVideo', paddingBottom, auto_play);
                         }
@@ -249,18 +244,7 @@ function initJQuery() {
 
                 // fetch playlist from video cloud rest api
                 (function () {
-                    var script = document.createElement("script"),
-                        script2 = document.createElement("script"),
-                        path = "http://api.brightcove.com/services/library?",
-                        playlistId = $('#video-attributes').data('playlist_id'),
-                        listFields = $('#video-attributes').data('list_fields'),
-                        videoFields = $('#video-attributes').data('video_fields'),
-                        mediaDelivery = $('#video-attributes').data('media_delivery'),
-                        JScallback = $('#video-attributes').data('callback'),
-                        JStoken = $('#video-attributes').data('token'),
-                        rest = "command=find_playlist_by_id&playlist_id=" + playlistId + "&playlist_fields=" + listFields + "&video_fields=" + videoFields + "&media_delivery=" + mediaDelivery + "&callback=" + JScallback + "&token=" + JStoken,
-                        scriptSrc = path + rest,
-                        time = 1000;
+                    var path = "http://api.brightcove.com/services/library?";
 
                     //Add Video Styles
                     //only if local var is empty
@@ -275,31 +259,39 @@ function initJQuery() {
                         head.appendChild(link);
                     }
 
-                    //load the actuall video.
-                    if( $('#video-attributes').length > 0 ) {
-                        script.src = scriptSrc;
-                        var head = document.getElementsByTagName("head")[0];
-                        head.appendChild(script);
-                    }
-
-                    //load single video
                     //for each player
-                    $( ".single-video-attributes" ).each(function() {
-                        var singleVideoId = $(this).data('video_id'),
-                            singleToken = $(this).data('token'),
-                            singleVideoFields = $(this).data('video_fields'),
-                            singleMediaDelivery = $(this).data('media_delivery'),
-                            singleCallback = $(this).data('callback'),
-                            singleVideoRest = "command=find_video_by_id&video_id="+ singleVideoId +"&video_fields="+singleVideoFields+"&media_delivery="+singleMediaDelivery+"&callback=" + singleCallback + "&token=" + singleToken,
-                            scriptSrcSingle = path + singleVideoRest;
+                    $( ".video-attributes" ).each(function() {
+                        var $this = $(this),
+                            type = $this.data('type');
 
+                        switch (type) {
+                            case 'playlist':
+                                var playlistId = $this.data('playlist_id'),
+                                    listFields = $this.data('list_fields'),
+                                    videoFields = $this.data('video_fields'),
+                                    mediaDelivery = $this.data('media_delivery'),
+                                    JScallback = $this.data('callback'),
+                                    JStoken = $this.data('token'),
+                                    playlistUrl = "command=find_playlist_by_id&playlist_id=" + playlistId + "&playlist_fields=" + listFields + "&video_fields=" + videoFields + "&media_delivery=" + mediaDelivery + "&callback=" + JScallback + "&token=" + JStoken,
+                                    scriptSrc = path + playlistUrl;
 
-                        setTimeout( function(){ 
-                            $.getScript( scriptSrcSingle, function( data, textStatus, jqxhr ) {
-                              console.log( "Load was performed." );
-                            });
-                        }, time);
-                        time += 1000;
+                                break;
+                            
+                            case 'singleVideo':
+                                var singleVideoId = $this.data('video_id'),
+                                    singleToken = $this.data('token'),
+                                    singleVideoFields = $this.data('video_fields'),
+                                    singleMediaDelivery = $this.data('media_delivery'),
+                                    singleCallback = $this.data('callback'),
+                                    singleUrl = "command=find_video_by_id&video_id="+ singleVideoId +"&video_fields="+singleVideoFields+"&media_delivery="+singleMediaDelivery+"&callback=" + singleCallback + "&token=" + singleToken,
+                                    scriptSrc = path + singleUrl;
+
+                                break;
+                        }
+
+                        $.getScript( scriptSrc, function( data, textStatus, jqxhr ) {
+                          console.log( "Load was performed." );
+                        });
                     });
                 })();
             });
