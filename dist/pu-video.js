@@ -237,6 +237,14 @@ function initJQuery() {
                             
                             // create player with first video loaded
                             addPlayer(ACCOUNTID, PLAYERID, videoID, 0, 'singleVideo', paddingBottom, auto_play);
+                        },
+
+                        stop: function() {
+                            $(".vjs-control-text:contains('Pause')").trigger('click');
+                        },
+
+                        play: function(id) {
+                            $("#singleVideo-"+id+" .vjs-control-text:contains('Play')").trigger('click');
                         }
                     }
                 })();
