@@ -155,7 +155,7 @@ function initJQuery() {
 
                             // initialize playlist
                             for (var i = 0; i < total; i++) {
-                                str = '<li class="list-group-item j-play-video" data-index="' + i + '" data-id="' + data.videos[i].id + '"><div class="media"><a class="pull-left" href="#"><img class="media-object img-responsive j-pu-ellipse" src="' + data.videos[i].thumbnailURL + '" alt="' + data.videos[i].name + '" ></a><div class="media-body"><h4 class="media-heading">' + data.videos[i].shortDescription + '</h4></div></div></li>';
+                                str = '<li class="media-list j-play-video" data-index="' + i + '" data-id="' + data.videos[i].id + '"><div class="media"><a class="pull-left" href="#"><img class="media-object img-responsive j-pu-ellipse" src="' + data.videos[i].thumbnailURL + '" alt="' + data.videos[i].name + '" ></a><div class="media-body"><h4 class="media-heading">' + data.videos[i].shortDescription + '</h4></div></div></li>';
 
                                 $(".j-drop-data").append(str);
 

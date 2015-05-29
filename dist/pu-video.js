@@ -45,6 +45,7 @@ function initJQuery() {
                     var player, currentVideoIndex = 0;
                     var ellipsis = "...";
                     var singleCalled = false;
+                    var count = 1;
 
                     var executeScript = function (accountID, playerID, videoOrPlaylistID, type) {
                         // add and execute the player script tag
@@ -53,22 +54,33 @@ function initJQuery() {
                         document.body.appendChild(s);
 
                         s.onload = function () {
+                            console.log('loaded')
                             onScriptReady(videoOrPlaylistID, type);
                         };
                     };
 
-                    onScriptReady = function(videoOrPlaylistID, type) {
+                    var onScriptReady = function(videoOrPlaylistID, type) {
                         switch (type) {
                             case 'playlist':
                                 videojs("pu_video").ready(function() {
                                     PUPLAYER = this;
                                     PUPLAYER.playlist.autoadvance(0);
+
+                                    PUPLAYER.on('loadstart', function() {
+                                        $('.j-current-view').html(count);
+
+                                        // console.log('count = ' + count);
+                                        // console.log('=================');
+                                        count++;
+                                    });
+
                                     PUPLAYER.on('loadedmetadata', function() {
-                                        console.log(PUPLAYER.playlist());
+                                        // console.log(PUPLAYER.playlist());
                                         if (!playlistCreated) {
                                             initPlaylist();
                                             playlistCreated = true;
                                         }
+
                                     });
                                     $(".video-player").css('opacity', '1');
                                 });
@@ -94,7 +106,7 @@ function initJQuery() {
 
                         // initialize playlist
                         for (var i = 0; i < total; i++) {
-                            str = '<li class="list-group-item j-play-video" data-index="' + i + '" data-id="' + videos[i].id + '"><div class="media"><a class="pull-left" href="#"><img class="media-object img-responsive j-pu-ellipse" src="' + videos[i].thumbnail + '" alt="' + videos[i].name + '" ></a><div class="media-body"><h4 class="media-heading">' + videos[i].description + '</h4></div></div></li>';
+                            str = '<li class="media-list j-play-video" data-index="' + i + '" data-id="' + videos[i].id + '"><div class="media"><a class="pull-left" href="#"><img class="media-object img-responsive j-pu-ellipse" src="' + videos[i].thumbnail + '" alt="' + videos[i].name + '" ></a><div class="media-body"><h4 class="media-heading">' + videos[i].description + '</h4></div></div></li>';
 
                             $(".j-drop-data").append(str);
                         }
@@ -108,7 +120,11 @@ function initJQuery() {
                             // update the video title display
                             $(".j-play-video").removeClass('active');
                             $(".j-play-video:eq(" + currentVideoIndex + ")").addClass('active');
-                            $('.j-current-view').html(currentVideoIndex + 1);
+                            
+                            //$('.j-current-view').html(currentVideoIndex + 1);
+
+                            // console.log(currentVideoIndex  + 1);
+                            count = currentVideoIndex + 1;
 
                             // play selected video
                             PUPLAYER.playlist.currentItem(currentVideoIndex);
@@ -135,7 +151,7 @@ function initJQuery() {
 
                         switch (type) {
                             case 'playlist':
-                                $(".video-attributes[data-type='playlist']").replaceWith("<div class=\"pu-embed-video-brightcove load-player clearfix\"><div class=\"video-player\" style='opacity:0'></div><div class=\"video-playlist\"><span class=\"data-drop j-drop-data\"></span></div></div>");
+                                $(".video-attributes[data-type='playlist']").replaceWith("<div class=\"pu-embed-video-brightcove load-player clearfix\"><div class=\"video-player\" style='opacity:0'></div><div class=\"video-playlist\"><ul class=\"data-drop j-drop-data\"></ul></div></div>");
                                 playerTemplate = '<video id="pu_video" data-account="{{accountID}}" data-player="{{playerID}}" data-playlist-id="{{videoOrPlaylistID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video>';
                                 template = Handlebars.compile(playerTemplate);
                                 playerHTML = template(playerData);
@@ -166,7 +182,7 @@ function initJQuery() {
                         executeScript(accountID, playerID, videoOrPlaylistID, type);
                     };
 
-                    trimLength = function (text, maxLength) { //pass text and desire length, add ... if length goes over "maxLength"
+                    var trimLength = function (text, maxLength) { //pass text and desire length, add ... if length goes over "maxLength"
                         text = $.trim(text);
 
                         if (text.length > maxLength) {
