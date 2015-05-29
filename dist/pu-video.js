@@ -194,7 +194,15 @@ function initJQuery() {
                     };
 
                     return {
-                        addPlayer: addPlayer
+                        addPlayer: addPlayer,
+                        
+                        stop: function() {
+                            $(".vjs-control-text:contains('Pause')").trigger('click');
+                        },
+
+                        play: function(id) {
+                            $("#singleVideo-"+id+" .vjs-control-text:contains('Play')").trigger('click');
+                        }
                     }
                 })();
 
