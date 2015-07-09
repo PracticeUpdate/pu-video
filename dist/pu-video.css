@@ -67,19 +67,20 @@
 
 .pu-embed-video-brightcove.load-player .video-playlist .data-drop {
 	display:block;
+	padding:0;
 }
 
-.pu-embed-video-brightcove.load-player .video-playlist .data-drop .list-group-item {
+.pu-embed-video-brightcove.load-player .video-playlist .data-drop .media-list {
 	padding:10px;
 	list-style:none;
 }
 
-.pu-embed-video-brightcove.load-player .video-playlist .data-drop .list-group-item h4, 
-.pu-embed-video-brightcove.load-player .video-playlist .data-drop .list-group-item .channel-title {
+.pu-embed-video-brightcove.load-player .video-playlist .data-drop .media-list h4, 
+.pu-embed-video-brightcove.load-player .video-playlist .data-drop .media-list .channel-title {
 	color:#fff;
 }
 
-.pu-embed-video-brightcove.load-player .video-playlist .list-group-item {
+.pu-embed-video-brightcove.load-player .video-playlist .media-list {
 	background:transparent;
 	border:0 none;
 	cursor:pointer;
@@ -89,12 +90,12 @@
 	transition:all .5s ease-in-out;
 }
 
-.pu-embed-video-brightcove.load-player .video-playlist .list-group-item img {
+.pu-embed-video-brightcove.load-player .video-playlist .media-list img {
 	border:1px solid #c5c6c5;
 }
 
-.load-player .video-playli.pu-embed-video-brightcovest .list-group-item h4, 
-.pu-embed-video-brightcove.load-player .video-playlist .list-group-item .channel-title {
+.load-player .video-playli.pu-embed-video-brightcovest .media-list h4, 
+.pu-embed-video-brightcove.load-player .video-playlist .media-list .channel-title {
 	color:#d5d5d5;
 	-moz-text-shadow:2px 2px 3px rgba(255, 255, 255, 0.1);
 	-webkit-text-shadow:2px 2px 3px rgba(255, 255, 255, 0.1);
@@ -102,13 +103,13 @@
 	font-size:14px;
 }
 
-.pu-embed-video-brightcove.load-player .video-playlist .list-group-item p {
+.pu-embed-video-brightcove.load-player .video-playlist .media-list p {
 	font-size:14px;
 	line-height:16px;
 }
 
-.pu-embed-video-brightcove.load-player .video-playlist .list-group-item:hover, 
-.pu-embed-video-brightcove.load-player .video-playlist .list-group-item.active {
+.pu-embed-video-brightcove.load-player .video-playlist .media-list:hover, 
+.pu-embed-video-brightcove.load-player .video-playlist .media-list.active {
 	background:#000000;
 	color:#fff;
 }
