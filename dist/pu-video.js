@@ -68,14 +68,10 @@ function initJQuery() {
 
                                     PUPLAYER.on('loadstart', function() {
                                         $('.j-current-view').html(count);
-
-                                        // console.log('count = ' + count);
-                                        // console.log('=================');
                                         count++;
                                     });
 
                                     PUPLAYER.on('loadedmetadata', function() {
-                                        // console.log(PUPLAYER.playlist());
                                         if (!playlistCreated) {
                                             initPlaylist();
                                             playlistCreated = true;
@@ -121,9 +117,7 @@ function initJQuery() {
                             $(".j-play-video").removeClass('active');
                             $(".j-play-video:eq(" + currentVideoIndex + ")").addClass('active');
                             
-                            //$('.j-current-view').html(currentVideoIndex + 1);
 
-                            // console.log(currentVideoIndex  + 1);
                             count = currentVideoIndex + 1;
 
                             // play selected video
@@ -156,7 +150,7 @@ function initJQuery() {
                                 template = Handlebars.compile(playerTemplate);
                                 playerHTML = template(playerData);
 
-                                $(".video-player").html(playerHTML);
+                                $(".video-player").html(playerHTML).find('video').attr('autoplay', auto_play);
 
                                 $('.pu-embed-video-brightcove.load-player .video-player').css({
                                     paddingBottom: paddingBottom + '%'
@@ -170,7 +164,8 @@ function initJQuery() {
 
                                 $(".video-attributes[data-video_id='"+videoOrPlaylistID+"']").replaceWith(playerHTML);
 
-                                $("#singleVideo-"+videoOrPlaylistID).attr('data-auto_play', auto_play);
+
+                                $("#singleVideo-"+videoOrPlaylistID).attr('autoplay', auto_play);
 
                                 $("#singleVideo-"+videoOrPlaylistID).css({
                                     paddingBottom: paddingBottom + '%'
@@ -234,7 +229,7 @@ function initJQuery() {
                         switch (type) {
                             case 'playlist':
                                 videoOrPlaylistID = $this.data('playlist_id');
-                                auto_play = null;
+                                auto_play = $this.data("auto_play");
                                 break;
                             
                             case 'singleVideo':
@@ -242,6 +237,7 @@ function initJQuery() {
                                 auto_play = $this.data("auto_play");
                                 break;
                         }
+
                         PU.video.addPlayer(accountID, playerID, videoOrPlaylistID, type, auto_play);
                     });
                 })();
