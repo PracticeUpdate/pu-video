@@ -64,9 +64,9 @@ http://pushare.s3.amazonaws.com/pu-video/latest/pu-video.css
 
 You can always overwrite it , or exclude it by doing one of the following:
 
-1. Creating a gloabal variable call PUVIDEO. 
+* Creating a gloabal variable call PUVIDEO. 
 
-1. Including a pu-video.css stylesheet file 
+* Including a pu-video.css stylesheet file 
 
 ### What does the markup looks like? ###
 The html markup is super simple and looks like this:
@@ -112,7 +112,8 @@ http://support.brightcove.com/en/video-cloud/docs/player-configuration-parameter
 
 ### ScreenShots ###
 
- ![Optimized-PracticeUpdate   Explore.png](https://bitbucket.org/repo/LdMyqr/images/1272026521-Optimized-PracticeUpdate%20%20%20Explore.png)
+ https://raw.githubusercontent.com/PracticeUpdate/pu-video/master/dir/screenshots/playlist.png - (single video)
+ https://raw.githubusercontent.com/PracticeUpdate/pu-video/master/dir/screenshots/single.png - (playlist)
 
 
 ### Contribution guidelines ###

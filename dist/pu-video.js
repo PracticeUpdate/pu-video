@@ -170,6 +170,7 @@ function initJQuery() {
 
                                 $(".video-attributes[data-video_id='"+videoOrPlaylistID+"']").replaceWith(playerHTML);
 
+
                                 $("#singleVideo-"+videoOrPlaylistID).attr('autoplay', auto_play);
 
                                 $("#singleVideo-"+videoOrPlaylistID).css({
@@ -234,7 +235,7 @@ function initJQuery() {
                         switch (type) {
                             case 'playlist':
                                 videoOrPlaylistID = $this.data('playlist_id');
-                                auto_play = null;
+                                auto_play = $this.data("auto_play");
                                 break;
                             
                             case 'singleVideo':
@@ -242,6 +243,7 @@ function initJQuery() {
                                 auto_play = $this.data("auto_play");
                                 break;
                         }
+
                         PU.video.addPlayer(accountID, playerID, videoOrPlaylistID, type, auto_play);
                     });
                 })();
