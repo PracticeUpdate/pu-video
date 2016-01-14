@@ -35,12 +35,12 @@ function initJQuery() {
             jQueryScriptOutputted = true;
 
             //output the script (load it from google api)
-            document.write("<scr" + "ipt type=\"text/javascript\" src=\"https://code.jquery.com/jquery-1.10.0.min.js\"></scr" + "ipt>");
+            document.write("<scr" + "ipt type=\"text/javascript\" src=\"//code.jquery.com/jquery-1.10.0.min.js\"></scr" + "ipt>");
         }
         setTimeout("initJQuery()", 50);
     } else {
         if (typeof(Handlebars) == 'undefined') {
-            loadScript("http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js", function () {
+            loadScript("//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js", function () {
                 PU.video = (function () {
                     var player, currentVideoIndex = 0;
                     var ellipsis = "...";
@@ -208,7 +208,7 @@ function initJQuery() {
 
                 // fetch playlist from video cloud rest api
                 (function () {
-                    var path = "http://api.brightcove.com/services/library?";
+                    var path = "//api.brightcove.com/services/library?";
 
                     //Add Video Styles
                     //only if local var is empty
@@ -219,7 +219,7 @@ function initJQuery() {
                         
                         link.type = 'text/css'
                         link.rel = 'stylesheet'
-                        link.href = 'http://pushare.s3.amazonaws.com/pu-video/latest/pu-video.css'
+                        link.href = '//pushare.s3.amazonaws.com/pu-video/latest/pu-video.css'
                         head.appendChild(link);
                     }
 
