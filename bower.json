@@ -4,9 +4,7 @@
   "main": "dist/pu-video.js",
   "ignore": [],
   "dependencies": {
-    "pu-video": "git@bitbucket.org:practiceupdate/pu-video.git"
   },
   "devDependencies": {
-    "grunt": "*"
   }
 }
