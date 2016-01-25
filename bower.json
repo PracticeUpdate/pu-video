@@ -1,5 +1,5 @@
 {
-  "name": "PracticeUpdate Video Player",
+  "name": "pu-video",
   "version": "2.0.7",
   "main": "dist/pu-video.js",
   "ignore": [],
